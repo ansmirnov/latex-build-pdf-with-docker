@@ -1,0 +1,30 @@
+#+TITLE: Latex build PDF
+#+PROPERTY: header-args :session *shell latex* :results silent raw
+
+** Select latex version
+
+#+BEGIN_SRC sh
+IMAGE=blang/latex:ctanfull  # or ctanbasic
+#+END_SRC
+
+** Pull docker image
+
+#+BEGIN_SRC sh
+docker pull $IMAGE
+#+END_SRC
+
+** Sources config
+
+#+BEGIN_SRC sh
+SRC_DIR=`pwd`
+#+END_SRC
+
+#+BEGIN_SRC sh
+SRC_FILE="main.tex"
+#+END_SRC
+
+** Build PDF
+
+#+BEGIN_SRC sh
+docker run --rm -v "$SRC_DIR:/data" --user="$(id -u):$(id -g)" $IMAGE pdflatex $SRC_FILE
+#+END_SRC
